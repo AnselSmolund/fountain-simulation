@@ -12,7 +12,6 @@ void setup(){
   lights();
   particles = new ArrayList<Particle>();
 }
-
 void draw(){  
   background(255);
   lights();
@@ -25,10 +24,10 @@ void draw(){
   scale(scale);
   fountain.display();
   if(flowing){
-    for(int i = 0; i < 63; i++){
-      if(particles.size() < 10000){
+    for(int i = 0; i < 100; i++){
+  
        particles.add(new Particle(new PVector(0,-30,0),new PVector(random(0.2,.9),random(-2,-1.9),random(-0.1,0.1))));
-      }
+      
     }
   }
   if(keyPressed){
@@ -129,31 +128,34 @@ class Particle{
   //This bit of code has been used from this program by Dan Shiffman
   //https://github.com/CodingTrain/website/blob/master/CodingChallenges/CC_025_SphereGeometry/Processing/CC_025_SphereGeometry/CC_025_SphereGeometry.pde
   void display(){
-   float r = radius;
-   for (int i = 0; i < total+1; i++) {
-    float lat = map(i, 0, total, 0, PI);
-    for (int j = 0; j < total+1; j++) {
-      float lon = map(j, 0, total, 0, TWO_PI);
-      float x = r * sin(lat) * cos(lon);
-      float y = r * sin(lat) * sin(lon);
-      float z = r * cos(lat);
-      sphere_arr[i][j] = new PVector(x, y, z);
-     }
-   }
-   for (int i = 0; i < total; i++) { 
-    fill(0,0,random(200,255),life*3);
-    noStroke();
+    stroke(0,0,random(200,255),life*3);
+    strokeWeight(radius);
+    point(location.x,location.y,location.z);
+   //float r = radius;
+   //for (int i = 0; i < total+1; i++) {
+   // float lat = map(i, 0, total, 0, PI);
+   // for (int j = 0; j < total+1; j++) {
+   //   float lon = map(j, 0, total, 0, TWO_PI);
+   //   float x = r * sin(lat) * cos(lon);
+   //   float y = r * sin(lat) * sin(lon);
+   //   float z = r * cos(lat);
+   //   sphere_arr[i][j] = new PVector(x, y, z);
+   //  }
+   //}
+   //for (int i = 0; i < total; i++) { 
+   // fill(0,0,random(200,255),life*3);
+   // noStroke();
    
-    beginShape(TRIANGLE_STRIP);
-   // texture(img);
-    for (int j = 0; j < total+1; j++) {
-      PVector v1 = sphere_arr[i][j];
-      vertex(v1.x + location.x, v1.y + location.y, v1.z + location.z);
-      PVector v2 = sphere_arr[i+1][j];
-      vertex(v2.x + location.x, v2.y + location.y, v2.z + location.z);
-      }
-     endShape();
-    }   
+   // beginShape(TRIANGLE_STRIP);
+   //// texture(img);
+   // for (int j = 0; j < total+1; j++) {
+   //   PVector v1 = sphere_arr[i][j];
+   //   vertex(v1.x + location.x, v1.y + location.y, v1.z + location.z);
+   //   PVector v2 = sphere_arr[i+1][j];
+   //   vertex(v2.x + location.x, v2.y + location.y, v2.z + location.z);
+   //   }
+   //  endShape();
+   // }   
   }
   void checkEdges(){
     
@@ -219,6 +221,7 @@ class Box{
  
     beginShape(QUADS);
     stroke(0);
+    strokeWeight(2);
     noFill();
     vertex( 150, -150,  150, 0, 0); 
     vertex( 150, -150, -150, 150, 0); 
